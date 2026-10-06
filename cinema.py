@@ -1,31 +1,44 @@
-hamburguer = 20
-batata = 10
-refrigerante = 5
+# Preços
+ingresso = 30.00
+pipoca = 20.00
+refrigerante = 10.00
 
-qtdhamburguer = int(input('Hambúrguere: '))
-qtdbatata = int(input('Batata: '))
-qtdrefrigerante = int(input('Refrigerante: '))
+# Quantidades
+qtd_ingresso = int(input("Quantidade de ingressos: "))
+qtd_meia = int(input("Quantidade de meias-entradas: "))
+qtd_pipoca = int(input("Quantidade de pipocas: "))
+qtd_refri = int(input("Quantidade de refrigerantes: "))
 
-subtotal = (hamburguer * qtdhamburguer) + (batata * qtdbatata) + (refrigerante * qtdrefrigerante)
+# Cálculos
+total_ingresso = qtd_ingresso * ingresso
+desconto_meia = qtd_meia * (ingresso / 2)
 
-taxa = subtotal * 0.10
+subtotal = total_ingresso - desconto_meia
+subtotal += qtd_pipoca * pipoca
+subtotal += qtd_refri * refrigerante
+
+# Promoção do combo
+if qtd_pipoca >= 1 and qtd_refri >= 1:
+    subtotal -= 5
+
+# Taxa de conveniência
+taxa = subtotal * 0.05
 total = subtotal + taxa
 
-gorjeta = input('Quer deixar gorjeta? (sim/nao): ') == 'sim'
+# Divisão
+pessoas = int(input("Entre quantas pessoas será dividido? "))
+valor_pessoa = total / pessoas
 
-if gorjeta:
-    total = total + 10
+# Verificação do orçamento
+passeio_caro = valor_pessoa > 40
 
-pessoas = int(input('Dividir para quantas pessoas? '))
-
-if pessoas > 4:
-    total = total * 0.95
-
-print('\n--- CONTA ---')
-print(f'Subtotal: R$ {subtotal:.2f}')
-print(f'Taxa: R$ {taxa:.2f}')
-print(f'Total: R$ {total:.2f}')
-print(f'Por pessoa: R$ {total / pessoas:.2f}')
-
-if total > 200:
-    print('\nA conta passou de R$ 200!')
+# Recibo
+print("\n===== RECIBO =====")
+print(f"Ingressos: R$ {total_ingresso:.2f}")
+print(f"Desconto meia: R$ {desconto_meia:.2f}")
+print(f"Pipocas: R$ {qtd_pipoca * pipoca:.2f}")
+print(f"Refrigerantes: R$ {qtd_refri * refrigerante:.2f}")
+print(f"Taxa (5%): R$ {taxa:.2f}")
+print(f"Total: R$ {total:.2f}")
+print(f"Por pessoa: R$ {valor_pessoa:.2f}")
+print(f"Passeio saiu caro? {passeio_caro}")
